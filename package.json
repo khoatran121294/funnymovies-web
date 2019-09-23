@@ -28,7 +28,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "nodemon server/app",
     "build": "react-scripts build",
     "build:systemtest": "env-path -p .env.systemtest react-scripts build",
     "format": "prettier --write \"**/*.+(js|json|css)\"",
