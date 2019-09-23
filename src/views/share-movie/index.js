@@ -4,6 +4,9 @@ import "./style.scss";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { toastr } from "react-redux-toastr";
+import _ from "lodash";
+import http from "../../helpers/http";
+import { HTTP_STATUS_CODE } from "../../app-constants";
 
 const formSchema = Yup.object().shape({
   linkUrl: Yup.string().required("Required"),
@@ -104,11 +107,20 @@ class ShareMovie extends React.Component {
       </Container>
     );
   }
-  onSubmit = async movie => {
-    // TODO: call api to create new user
-    console.log("movie", movie);
-    this.props.history.push("/home");
-    toastr.success("Success", "Share a movie successfully.");
+  onSubmit = async newMovie => {
+    try {
+      const res = await http.post("movies", newMovie);
+      if (res.data) {
+        toastr.success("Success", "Share a movie successfully.");
+        this.props.history.push("/home");
+      }
+    } catch (err) {
+      const statusCode = _.get(err, "response.status");
+      const errorMessage  = _.get(err, "response.data.error");
+      if (statusCode === HTTP_STATUS_CODE.BAD_REQUEST) {
+        toastr.error("Error", errorMessage);
+      }
+    }
   };
 }
 
