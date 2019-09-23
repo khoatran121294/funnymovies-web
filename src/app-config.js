@@ -1,7 +1,7 @@
 // App config
 
 const appConfig = {
-  appName: 'Funny Movie',
+  appName: 'Funny Movies',
   appVersion: '0.1',
   apiBaseUrl: process.env.REACT_APP_API_URL
 };
