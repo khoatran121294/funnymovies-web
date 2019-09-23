@@ -23,10 +23,10 @@ class RegisterModal extends React.Component {
   static propTypes = {
     modal: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
-    doActionAfterSubmit: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired
   };
   render () {
-    const { modal, toggle } = this.props;
+    const { modal, toggle, onSubmit } = this.props;
     return (
       <Modal
           isOpen={modal}
@@ -38,7 +38,7 @@ class RegisterModal extends React.Component {
               password: "",
             }}
             validationSchema={formSchema}
-            onSubmit={this.onSubmit}
+            onSubmit={onSubmit}
           >
             {({ errors, touched }) => (
               <Form>
@@ -102,11 +102,6 @@ class RegisterModal extends React.Component {
         </Modal>
     );
   }
-  onSubmit = async account => {
-    // TODO: call api to create new user
-    console.log("account", account);
-    this.props.toggle();
-  };
 }
 
 export default RegisterModal;
