@@ -1,11 +1,9 @@
 import React from "react";
-import { Row, Col, Container } from "reactstrap";
+import { Row, Col, Container, Label } from "reactstrap";
 import MovieCard from "../../components/MovieCard";
 import "./style.scss";
-import { toastr } from "react-redux-toastr";
 import _ from "lodash";
 import http from "../../helpers/http";
-import { HTTP_STATUS_CODE } from "../../app-constants";
 
 class Home extends React.Component {
   state = {
@@ -14,7 +12,7 @@ class Home extends React.Component {
     loaded: false,
   };
   render() {
-    const { movies } = this.state;
+    const { movies, loading } = this.state;
     return (
       <Container className="mt-5">
         <Row>
@@ -23,7 +21,13 @@ class Home extends React.Component {
           </Col>
           <Col md="12">
             {
-              movies && movies.map((item, index) => <MovieCard key={index} movie={item} />)
+              loading
+              ? <Label>Loading ...</Label>
+              : _.isEmpty(movies)
+                ? <Label>Shared List is empty.</Label>
+                : (
+                  movies.map((item, index) => <MovieCard key={index} movie={item} />)
+                )
             }
           </Col>
         </Row>
