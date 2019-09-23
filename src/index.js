@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import ReduxToastr from 'react-redux-toastr';
-import AppHeader from './components/Header';
 import Router from './views/Router';
 import Root from './Root';
 
@@ -13,7 +12,6 @@ import './index.scss';
 ReactDOM.render(
   <Root>
     <Fragment>
-      <AppHeader />
       <Router />
       <ReduxToastr
         timeOut={3000}
